@@ -10,6 +10,8 @@ module.exports = app; // Export it so it can be require('')'d
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
+app.use('/bower_components/', express.static(path.join(__dirname, '../bower_components')));
+
 // The path of our public directory. ([ROOT]/public)
 var publicPath = path.join(__dirname, '../public');
 
@@ -56,9 +58,9 @@ app.get('/cards', function (req, res) {
 app.post('/cards', function(req, res, next) {
     console.log(req.body);
     var FlashCard = new FlashCardModel({
-        question: 'fdsg',
-        category: 'dasgdfg',
-        answers: [ { text: 'sdgds', correct: false} ]
+        question: req.body.question,
+        category: req.body.category,
+        answers: req.body.answers
     })
     FlashCard.save().then(function(card) {
         res.send(card);

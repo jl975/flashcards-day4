@@ -18,4 +18,13 @@ app.factory('FlashCardsFactory', function($http) {
     getFlashCards: getFlashCards,
     categories: categories
   };
+
+
+  function addFlashCard (card) {
+    return $http.post('/cards', card)
+    .then(function(response) {
+      console.log(response.data);
+    });
+  }
+
 });

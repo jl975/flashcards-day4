@@ -17,36 +17,36 @@
         </div>
     </div>
     <div ng-controller="NewCardController">
-        <input type="text" ng-model="question" />
-        <p> Question: {{setQuestion(question)}} </p>
+        <input type="text" ng-model="newCard.question" />
+        <p> Question: </p>
 
         <p>Category: </p>
-        <select ng-model="category" 
+        <select ng-model="newCard.category" 
                 ng-options="category as category for category in categories" 
                 ng-change="setCategory(category)">
         </select>
 
-        <p> Answer: </p>
-        <p>Text: </p>
+        <p>Answer: </p>
         <ul>
             <li>
-                <input type="text" ng-model="answer1Text" />{{setAnswer(answer1Text, 0)}}</p>
-                <p><input type="checkbox" ng-model="answer1Correct" value="" />Correct? {{setCorrect(answer1Correct, 0)}}</p>
+                <input type="text" ng-model="newCard.answers[0].text" /></p>
+                <p><input type="checkbox" ng-model="newCard.answers[0].correct" value="" />Correct?</p>
             </li>
             <li>
-                <input type="text" ng-model="answer2Text" />{{setAnswer(answer2Text, 1)}}</p>
-                <p><input type="checkbox" ng-model="answer2Correct" value="" />Correct? {{setCorrect(answer2Correct, 1)}}</p>
+                <input type="text" ng-model="newCard.answers[1].text" /></p>
+                <p><input type="checkbox" ng-model="newCard.answers[1].correct" value="" />Correct?</p>
             </li>
             <li>
-                <input type="text" ng-model="answer3Text" />{{setAnswer(answer3Text, 2)}}</p>
-                <p><input type="checkbox" ng-model="answer3Correct" value="" />Correct? {{setCorrect(answer3Correct, 2)}}</p>
+                <input type="text" ng-model="newCard.answers[2].text" /></p>
+                <p><input type="checkbox" ng-model="newCard.answers[2].correct" value="" />Correct?</p>
             </li>
         </ul>
         
+        <button type="submit" ng-click="addCard(newCard)">Submit</button>
+
         <pre> {{ newCard | json }}</pre>
-
     </div>
-
+    
 
     <div ng-controller="MainController">
         <div class="cats">
@@ -56,6 +56,7 @@
         </div>
         <flash-card card="flashCard" ng-hide="loading" ng-repeat="flashCard in flashCards | orderBy : 'question'"></flash-card>
         <script src="/js/app.js"></script>
+        <script src="/bower_components/jquery/dist/jquery.min.js"></script>
         <script src="/js/controllers/main.controller.js"></script>
         <script src="/js/controllers/score.controller.js"></script>
         <script src="/js/controllers/newcard.controller.js"></script>
