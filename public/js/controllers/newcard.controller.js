@@ -14,10 +14,8 @@ app.controller('NewCardController', function ($scope, FlashCardsFactory) {
 
     $scope.addCard = function (newCard) {
       FlashCardsFactory.addFlashCard(newCard).then(function(card){
-        
-     }).catch(function(err){
-        $log.error('error adding card:', err);
-      });
+        console.log("front end card:" + card);
+     });
     };
 
     // $scope.setQuestion = function(text) {

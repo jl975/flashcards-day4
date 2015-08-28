@@ -14,17 +14,19 @@ app.factory('FlashCardsFactory', function($http) {
       return response.data;
     });
   }
-  return {
-    getFlashCards: getFlashCards,
-    categories: categories
-  };
-
 
   function addFlashCard (card) {
     return $http.post('/cards', card)
     .then(function(response) {
-      console.log(response.data);
+      return response.data;
     });
   }
+
+  return {
+    getFlashCards: getFlashCards,
+    addFlashCard: addFlashCard,
+    categories: categories
+  };
+
 
 });

@@ -56,15 +56,15 @@ app.get('/cards', function (req, res) {
 });
 
 app.post('/cards', function(req, res, next) {
-    console.log(req.body);
-    var FlashCard = new FlashCardModel({
+    //console.log(req.body);
+    FlashCardModel.create({
         question: req.body.question,
         category: req.body.category,
         answers: req.body.answers
-    })
-    FlashCard.save().then(function(card) {
+    }).then(function(card) {
+        console.log('logging response: ', card);
         res.send(card);
-    });
+    }).then(null, next);
 
 })
 

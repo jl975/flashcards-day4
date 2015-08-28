@@ -17,28 +17,28 @@
         </div>
     </div>
     <div ng-controller="NewCardController">
+        <p>Question:</p>
         <input type="text" ng-model="newCard.question" />
-        <p> Question: </p>
 
-        <p>Category: </p>
+        <p>Category:</p>
         <select ng-model="newCard.category" 
                 ng-options="category as category for category in categories" 
                 ng-change="setCategory(category)">
         </select>
 
-        <p>Answer: </p>
+        <p>Answer:</p>
         <ul>
             <li>
+                <input type="checkbox" ng-model="newCard.answers[0].correct" value="" />
                 <input type="text" ng-model="newCard.answers[0].text" /></p>
-                <p><input type="checkbox" ng-model="newCard.answers[0].correct" value="" />Correct?</p>
             </li>
             <li>
+                <input type="checkbox" ng-model="newCard.answers[1].correct" value="" />
                 <input type="text" ng-model="newCard.answers[1].text" /></p>
-                <p><input type="checkbox" ng-model="newCard.answers[1].correct" value="" />Correct?</p>
             </li>
             <li>
+                <input type="checkbox" ng-model="newCard.answers[2].correct" value="" />
                 <input type="text" ng-model="newCard.answers[2].text" /></p>
-                <p><input type="checkbox" ng-model="newCard.answers[2].correct" value="" />Correct?</p>
             </li>
         </ul>
         
@@ -46,7 +46,6 @@
 
         <pre> {{ newCard | json }}</pre>
     </div>
-    
 
     <div ng-controller="MainController">
         <div class="cats">
