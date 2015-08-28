@@ -1,9 +1,14 @@
 var path = require('path');
 var express = require('express');
 var FlashCardModel = require('./models/flash-card-model');
+var bodyParser = require('body-parser');
+
 
 var app = express(); // Create an express app!
 module.exports = app; // Export it so it can be require('')'d
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
 
 // The path of our public directory. ([ROOT]/public)
 var publicPath = path.join(__dirname, '../public');
@@ -47,3 +52,17 @@ app.get('/cards', function (req, res) {
     });
 
 });
+
+app.post('/cards', function(req, res, next) {
+    console.log(req.body);
+    var FlashCard = new FlashCardModel({
+        question: 'fdsg',
+        category: 'dasgdfg',
+        answers: [ { text: 'sdgds', correct: false} ]
+    })
+    FlashCard.save().then(function(card) {
+        res.send(card);
+    });
+
+})
+
