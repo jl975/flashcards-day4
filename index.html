@@ -16,35 +16,46 @@
             <h3>Incorrect: <span>{{ scores.incorrect }}</span></h3>
         </div>
     </div>
+
     <div ng-controller="NewCardController">
-        <p>Question:</p>
-        <input type="text" ng-model="newCard.question" />
+        <form name="newCardForm" ng-submit="newCardForm.$valid && addCard(newCard) && reset()" novalidate>
+            <p>Question:</p>
+            <p ng-show="newCardForm.question.$error.required && newCardForm.$submitted">Question is a required field</p>
+            <p ng-show="newCardForm.question.$error.minlength && newCardForm.$submitted">Question is too short</p>
 
-        <p>Category:</p>
-        <select ng-model="newCard.category" 
-                ng-options="category as category for category in categories" 
-                ng-change="setCategory(category)">
-        </select>
+            <input type="text" name="question" ng-model="newCard.question" ng-minlength="15" required />
 
-        <p>Answer:</p>
-        <ul>
-            <li>
-                <input type="checkbox" ng-model="newCard.answers[0].correct" value="" />
-                <input type="text" ng-model="newCard.answers[0].text" /></p>
-            </li>
-            <li>
-                <input type="checkbox" ng-model="newCard.answers[1].correct" value="" />
-                <input type="text" ng-model="newCard.answers[1].text" /></p>
-            </li>
-            <li>
-                <input type="checkbox" ng-model="newCard.answers[2].correct" value="" />
-                <input type="text" ng-model="newCard.answers[2].text" /></p>
-            </li>
-        </ul>
-        
-        <button type="submit" ng-click="addCard(newCard)">Submit</button>
+            <p>Category:</p>
+            <p ng-show="newCardForm.category.$error.required && newCardForm.$submitted">Category is a required field</p>
+            <select name="category"
+                    ng-model="newCard.category" 
+                    ng-options="category as category for category in categories" 
+                    ng-change="setCategory(category)" required>
+            </select>
 
-        <pre> {{ newCard | json }}</pre>
+            <p>Answer:</p>
+            <ul>
+                <li>
+                    <p ng-show="newCardForm.answer1.$error.maxlength && newCardForm.$submitted">Answer is too long</p>
+                    <input type="checkbox" ng-model="newCard.answers[0].correct" value="" />
+                    <input type="text" name="answer1" ng-model="newCard.answers[0].text" ng-maxlength="40" /></p>
+                </li>
+                <li>
+                    <p ng-show="newCardForm.answer2.$error.maxlength && newCardForm.$submitted">Answer is too long</p>
+                    <input type="checkbox" ng-model="newCard.answers[1].correct" value="" />
+                    <input type="text" name="answer2" ng-model="newCard.answers[1].text" ng-maxlength="40" /></p>
+                </li>
+                <li>
+                    <p ng-show="newCardForm.answer3.$error.maxlength && newCardForm.$submitted">Answer is too long</p>
+                    <input type="checkbox" ng-model="newCard.answers[2].correct" value="" />
+                    <input type="text" name="answer3" ng-model="newCard.answers[2].text" ng-maxlength="40" /></p>
+                </li>
+            </ul>
+            
+            <input type="submit" id="submit" value="Submit"/>
+
+            <pre> {{ newCard | json }}</pre>
+         </form>
     </div>
 
     <div ng-controller="MainController">
